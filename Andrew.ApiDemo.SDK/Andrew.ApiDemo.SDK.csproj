@@ -46,7 +46,6 @@
     <Compile Include="SiteLicenseToken.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Security\HashUtil.cs" />
-    <Compile Include="Security\TimeBoundTokenBase.cs" />
     <Compile Include="Security\TokenBase.cs" />
     <Compile Include="Security\TokenDataAttribute.cs" />
     <Compile Include="Security\TokenNotValidateException.cs" />

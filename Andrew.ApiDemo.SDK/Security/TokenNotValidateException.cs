@@ -21,4 +21,9 @@ namespace Andrew.ApiDemo.SDK.Security
         {
         }
     }
+
+
+    public class TokenNotSafeException : Exception { }
+
+    public class TokenNotSecureException : Exception { }
 }
