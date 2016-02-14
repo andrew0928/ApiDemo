@@ -16,6 +16,39 @@ namespace Andrew.ApiDemo.SDK.Security
     {
         private const char HASH_SPLIT_CHAR = 'Z';
 
+
+        private static Dictionary<string, RSACryptoServiceProvider> _KEY_STORE = new Dictionary<string, RSACryptoServiceProvider>();
+
+        static TokenBase()
+        {
+            //// init key 
+            //string keyDIR = ConfigurationManager.AppSettings["Andrew.ApiDemo.SDK.Security.KeyDirPath"];
+        }
+
+        public static void InitKeyDIR(string keyDIR)
+        {
+            // ToDo: 改成使用 key container
+
+            if (string.IsNullOrEmpty(keyDIR) == true || Directory.Exists(keyDIR) == false)
+            {
+                keyDIR = @"D:\KEYDIR";
+                if (Directory.Exists(keyDIR) == false) Directory.CreateDirectory(keyDIR);
+            }
+
+            foreach (string file in Directory.GetFiles(keyDIR, "*.xml", SearchOption.TopDirectoryOnly))
+            {
+                RSACryptoServiceProvider rsa = new RSACryptoServiceProvider();
+                rsa.FromXmlString(File.ReadAllText(file));
+
+                _KEY_STORE.Add(
+                    Path.GetFileNameWithoutExtension(file),
+                    rsa);
+            }
+
+        }
+
+
+
         /// <summary>
         /// PUBLIC SALT: 公開的 KEY，所有 PLANET 只要共用同一個 DLL 都一樣。可以用來驗證 TOKEN 的資料是否被破壞過。
         /// </summary>
@@ -50,10 +83,12 @@ namespace Andrew.ApiDemo.SDK.Security
         private static byte[] _CURRENT_PRIVATE_HASH_SALT = null;
 
 
-        [Obsolete]
-        [TokenData]
-        protected int TypeHash = 0;
+        //[Obsolete]
+        //[TokenData]
+        //protected int TypeHash = 0;
         
+
+
         //[TokenData]
         protected byte[] TypeFullNameHash = null;
 
