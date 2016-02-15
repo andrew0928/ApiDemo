@@ -21,7 +21,7 @@ namespace Andrew.ApiDemo.TokenUtil
 
         public static int RunAndReturnExitCode(TokenOptions opts)
         {
-            TokenBase.InitKeyDIR(@"D:\KEYDIR", "GLOBAL");
+            TokenData.Init("GLOBAL", @"D:\KEYDIR");
 
             SiteLicenseToken slt = new SiteLicenseToken();
             slt.SiteID = "S1";
@@ -29,15 +29,16 @@ namespace Andrew.ApiDemo.TokenUtil
             slt.EnableAPI = true;
             slt.LicenseStartDate = new DateTime(2000, 1, 1);
             slt.LicenseEndDate = new DateTime(2099, 12, 31);
-            string tt = slt.TokenText;
 
-            SiteLicenseToken slt2 = TokenBase.GetToken<SiteLicenseToken>("GLOBAL", tt);
+            string tt = TokenData.EncodeToken(slt);
 
-            Console.WriteLine("Safe Check:    {0}", slt2.IsSafe);
-            Console.WriteLine("Secure Check:  {0}", slt2.IsSecure);
-            Console.WriteLine("Valid Check:   {0}", slt2.IsValidate);
+            SiteLicenseToken slt2 = TokenData.DecodeToken<SiteLicenseToken>("GLOBAL", tt);
 
-            Console.WriteLine("");
+            //Console.WriteLine("Safe Check:    {0}", slt2.IsSafe);
+            //Console.WriteLine("Secure Check:  {0}", slt2.IsSecure);
+            //Console.WriteLine("Valid Check:   {0}", slt2.IsValidate);
+
+            //Console.WriteLine("");
 
             Console.WriteLine("SiteID:        {0}", slt2.SiteID);
             Console.WriteLine("Site Title:    {0}", slt2.SiteTitle);
@@ -47,13 +48,13 @@ namespace Andrew.ApiDemo.TokenUtil
 
             Console.WriteLine("");
 
-            Console.WriteLine("Encoded Text:  {0}", slt2.TokenText);
+            Console.WriteLine("Encoded Text:  {0}", tt);
 
             Stopwatch timer = new Stopwatch();
             timer.Start();
             for(int i = 0; i < 100000; i++)
             {
-                SiteLicenseToken slt3 = TokenBase.GetToken<SiteLicenseToken>("ORCA", tt, true);
+                TokenData.DecodeToken<SiteLicenseToken>("GLOBAL", tt);
             }
             Console.WriteLine("Total Time: {0} msec.", timer.ElapsedMilliseconds);
 
