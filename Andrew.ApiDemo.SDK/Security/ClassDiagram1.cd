@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Andrew.ApiDemo.SDK.Security.TokenData">
+    <Position X="7.5" Y="0.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAEAAAAAAAAAAIAAAAAAAAABAAAAAAAAAAAAA=</HashCode>
+      <FileName>Security\TokenData.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Andrew.ApiDemo.SDK.Security.TokenHelper">
+    <Position X="11.5" Y="0.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>QAAAAAkAAEAAAAAAAAEAAAAAABAAAAAAAAACGQBAQAA=</HashCode>
+      <FileName>Security\TokenHelper.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Andrew.ApiDemo.SDK.SiteLicenseToken">
+    <Position X="7.25" Y="3.5" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAgAAAAAAAACAIAAAEAAAAAAAAAAAAAAAAIAA=</HashCode>
+      <FileName>SiteLicenseToken.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

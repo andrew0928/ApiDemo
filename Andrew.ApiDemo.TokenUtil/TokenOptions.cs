@@ -21,40 +21,50 @@ namespace Andrew.ApiDemo.TokenUtil
 
         public static int RunAndReturnExitCode(TokenOptions opts)
         {
-            TokenData.Init("GLOBAL", @"D:\KEYDIR");
+            // 初始化存放所有金鑰的 KEYSTORE，同時設定這個網站本身的 SITEID
+            TokenHelper.Init("GLOBAL", @"D:\KEYDIR");
 
-            SiteLicenseToken slt = new SiteLicenseToken();
-            slt.SiteID = "S1";
+            // 建立空的 SiteLicenseToken 物件
+            SiteLicenseToken slt = TokenHelper.CreateToken<SiteLicenseToken>(); //new SiteLicenseToken();
+
+            // 填入設定值
             slt.SiteTitle = "SITE #1";
             slt.EnableAPI = true;
             slt.LicenseStartDate = new DateTime(2000, 1, 1);
             slt.LicenseEndDate = new DateTime(2099, 12, 31);
 
-            string tt = TokenData.EncodeToken(slt);
+            // 編碼，將原始資料及數位簽章，打包成單一字串。可以用任何形式發佈出去
+            string plaintext = TokenHelper.EncodeToken(slt);
 
-            SiteLicenseToken slt2 = TokenData.DecodeToken<SiteLicenseToken>("GLOBAL", tt);
 
-            //Console.WriteLine("Safe Check:    {0}", slt2.IsSafe);
-            //Console.WriteLine("Secure Check:  {0}", slt2.IsSecure);
-            //Console.WriteLine("Valid Check:   {0}", slt2.IsValidate);
+            // 本文 + 簽章
+            //string plaintext = @"nwAAAAJTaXRlVGl0bGUACAAAAFNJVEUgIzEACEVuYWJsZUFQSQABCUxpY2Vuc2VTdGFydERhdGUAADgYadwAAAAJTGljZW5zZUVuZERhdGUAAAjmJbsDAAACU2l0ZUlEAAcAAABHTE9CQUwAAlR5cGVOYW1lACQAAABBbmRyZXcuQXBpRGVtby5TREsuU2l0ZUxpY2Vuc2VUb2tlbgAA|wJ3dTgy1ZdF3vgkketmrQXwd7IDxgzMY/wTnFSVMODs=|0ofhHMSEHQGZMOafFQxF6zfQchnThv+iPc7PrFZMrL89dkxvYvkYjHhUYLgHNOVz3RGXMxAMQVnwZjrHRNz5GLkaLs19wl1HWCt9kOdWQI/zkvS129IZntdoM4hnN9F/aeVnsDtSS82lx+ESTIh2Wcp5wVwowkzI3l82D3dZwCo=";
 
-            //Console.WriteLine("");
+            try {
+                // 驗證簽章。若驗證失敗則會丟出 TokenException
+                SiteLicenseToken token = TokenHelper.DecodeToken<SiteLicenseToken>("GLOBAL", plaintext);
 
-            Console.WriteLine("SiteID:        {0}", slt2.SiteID);
-            Console.WriteLine("Site Title:    {0}", slt2.SiteTitle);
-            Console.WriteLine("Enable API:    {0}", slt2.EnableAPI);
-            Console.WriteLine("License Since: {0}", slt2.LicenseStartDate);
-            Console.WriteLine("License Until: {0}", slt2.LicenseEndDate);
+                // 成功通過驗證，直接取出設定值
+                Console.WriteLine("SiteID:        {0}", token.SiteID);
+                Console.WriteLine("Site Title:    {0}", token.SiteTitle);
+                Console.WriteLine("Enable API:    {0}", token.EnableAPI);
+                Console.WriteLine("License Since: {0}", token.LicenseStartDate);
+                Console.WriteLine("License Until: {0}", token.LicenseEndDate);
+            }
+            catch(TokenException tex)
+            {
+                // 驗證失敗
+            }
 
             Console.WriteLine("");
 
-            Console.WriteLine("Encoded Text:  {0}", tt);
+            Console.WriteLine("Encoded Text:  {0}", plaintext);
 
             Stopwatch timer = new Stopwatch();
             timer.Start();
             for(int i = 0; i < 100000; i++)
             {
-                TokenData.DecodeToken<SiteLicenseToken>("GLOBAL", tt);
+                TokenHelper.DecodeToken<SiteLicenseToken>("GLOBAL", plaintext);
             }
             Console.WriteLine("Total Time: {0} msec.", timer.ElapsedMilliseconds);
 
