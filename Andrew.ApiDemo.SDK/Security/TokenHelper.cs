@@ -89,17 +89,19 @@ namespace Andrew.ApiDemo.SDK.Security
             byte[] hash_buffer = Convert.FromBase64String(parts[1]);
             byte[] sign_buffer = Convert.FromBase64String(parts[2]);
 
+            // 檢查 hash, 確認 token 的完整性，確保資料在傳輸過程沒有損毀
             isSafe = VerifyHash(
                 data_buffer,
                 _PublicHashSalt,
                 hash_buffer);
 
+            // 檢查 signature, 確認 token 的安全性，確保資料沒有被偽造
             isSecure = _KeyStoreDict[siteID].VerifyData(
                 data_buffer,
                 _HALG,
                 sign_buffer);
 
-
+            // 還原 token 物件，將資料反序列化還原為 object, 同時驗證 token 的授權是否合法
             T token = null;
             {
                 MemoryStream ms = new MemoryStream(data_buffer, false);
@@ -116,6 +118,7 @@ namespace Andrew.ApiDemo.SDK.Security
 
         public static string EncodeToken(TokenData token)
         {
+            // TokenData 經過序列化之後的 binary data (使用 BSON format)
             byte[] data_buffer = null;
             {
                 MemoryStream dataMS = new MemoryStream();
@@ -128,11 +131,13 @@ namespace Andrew.ApiDemo.SDK.Security
                 data_buffer = dataMS.ToArray();
             }
 
+            // data_buffer 的 hash
             byte[] hash_buffer = null;
             {
                 hash_buffer = ComputeHash(data_buffer, _PublicHashSalt);
             }
 
+            // data_buffer 的簽章
             byte[] sign_buffer = null;
             {
                 sign_buffer = _KeyStoreDict[_CurrentSiteID].SignData(
@@ -140,6 +145,7 @@ namespace Andrew.ApiDemo.SDK.Security
                     _HALG);
             }
 
+            // 打包 data_buffer, hash_buffer, sign_buffer
             return string.Format(
                 @"{1}{0}{2}{0}{3}",
                 _HashSplitChar,

@@ -10,8 +10,17 @@ using System.Threading.Tasks;
 
 namespace Andrew.ApiDemo.SDK.Security
 {
+    /// <summary>
+    /// 如何自訂 TokenData ?
+    /// 
+    /// 1. 繼承自 TokenData
+    /// 2. 加上你的自訂項目，標上 [JsonProperty]
+    /// 3. 覆寫 (override) bool IsValidate( ), 自訂你的授權驗證邏輯
+    /// 
+    /// 完成
+    /// </summary>
     [JsonObject(MemberSerialization = MemberSerialization.OptIn)]
-    public class TokenData
+    public abstract class TokenData
     {
         internal TokenData()
         {
@@ -29,22 +38,6 @@ namespace Andrew.ApiDemo.SDK.Security
             if (this.GetType().FullName != this.TypeName) return false;
             return true;
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        
     }
 }
