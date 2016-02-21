@@ -16,6 +16,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		README.md = README.md
 	EndProjectSection
 EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Andrew.ApiDemo.WebDemo1", "Andrew.ApiDemo.WebDemo1\Andrew.ApiDemo.WebDemo1.xproj", "{FF500BC9-E81C-432C-9966-EF905610D6AD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -38,6 +40,10 @@ Global
 		{046CD6A0-91C0-4E3E-B713-59231A855A08}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{046CD6A0-91C0-4E3E-B713-59231A855A08}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{046CD6A0-91C0-4E3E-B713-59231A855A08}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FF500BC9-E81C-432C-9966-EF905610D6AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FF500BC9-E81C-432C-9966-EF905610D6AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FF500BC9-E81C-432C-9966-EF905610D6AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FF500BC9-E81C-432C-9966-EF905610D6AD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

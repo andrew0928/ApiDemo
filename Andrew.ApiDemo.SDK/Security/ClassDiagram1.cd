@@ -10,7 +10,7 @@
   <Class Name="Andrew.ApiDemo.SDK.Security.TokenHelper">
     <Position X="11.5" Y="0.75" Width="2.25" />
     <TypeIdentifier>
-      <HashCode>QAAAAAkAAEAAAAAAAAEAAAAAABAAAAAAAAACGQBAQAA=</HashCode>
+      <HashCode>QAAAAAEAAEAAAAAAAAEAAAAAAABAAAAAAAACEQAAQAA=</HashCode>
       <FileName>Security\TokenHelper.cs</FileName>
     </TypeIdentifier>
   </Class>

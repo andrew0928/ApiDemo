@@ -7,8 +7,10 @@ namespace Andrew.ApiDemo.SDK.Security
     public class TokenException : Exception { }
 
     public class TokenNotValidateException : TokenException { }
+
+    public class TokenSiteNotExistException : TokenException { }
     
-    public class TokenNotSafeException : TokenException { }
+    public class TokenFormatException : TokenException { }
 
     public class TokenNotSecureException : TokenException { }
 }

@@ -22,17 +22,24 @@ namespace Andrew.ApiDemo.SDK.Security
     [JsonObject(MemberSerialization = MemberSerialization.OptIn)]
     public abstract class TokenData
     {
-        internal TokenData()
-        {
+        internal TokenData() { }
 
-        }
-
+        /// <summary>
+        /// 產生該 Token 的 Site ID
+        /// </summary>
         [JsonProperty]
         public string SiteID { get; internal set; }
 
+        /// <summary>
+        /// 對應 TokenData 衍生類別的 Type Name
+        /// </summary>
         [JsonProperty]
         public string TypeName { get; internal set; }
 
+        /// <summary>
+        /// (可覆寫) 驗證 Token Data 資料是否合法
+        /// </summary>
+        /// <returns></returns>
         public virtual bool IsValidate()
         {
             if (this.GetType().FullName != this.TypeName) return false;
