@@ -22,7 +22,10 @@ namespace Andrew.ApiDemo.TokenUtil
         public static int RunAndReturnExitCode(TokenOptions opts)
         {
             // 初始化存放所有金鑰的 KEYSTORE，同時設定這個網站本身的 SITEID
-            TokenHelper.Init("GLOBAL", @"D:\KEYDIR\_PRIVATE\GLOBAL.xml", @"D:\KEYDIR");
+            TokenHelper.Init(
+                "GLOBAL", 
+                @"D:\KEYDIR\_PRIVATE\GLOBAL.xml", 
+                @"D:\KEYDIR");
 
             // 建立空的 SiteLicenseToken 物件
             SiteLicenseToken slt = TokenHelper.CreateToken<SiteLicenseToken>();
@@ -54,7 +57,7 @@ namespace Andrew.ApiDemo.TokenUtil
                 Console.WriteLine("License Since: {0}", token.LicenseStartDate);
                 Console.WriteLine("License Until: {0}", token.LicenseEndDate);
             }
-            catch(TokenException tex)
+            catch(TokenException)
             {
                 // 驗證失敗
             }
